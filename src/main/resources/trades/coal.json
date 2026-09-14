@@ -1,0 +1,11 @@
+{
+    "item": "v.coal",
+    "amount": 64,
+    "demand limit": 20,
+    "id": "coal",
+    "category": "mineral",
+    "price change": 1,
+    "item restingPrice": 0.5,
+    "demand": 20,
+    "group": 0
+}

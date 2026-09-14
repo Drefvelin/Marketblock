@@ -1,0 +1,11 @@
+{
+    "item": "v.porkchop",
+    "amount": 16,
+    "demand limit": 20,
+    "id": "raw_pork",
+    "category": "farm",
+    "price change": 2,
+    "item restingPrice": 1,
+    "demand": 20,
+    "group": 0
+}

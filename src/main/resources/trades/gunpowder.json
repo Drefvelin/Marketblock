@@ -1,0 +1,11 @@
+{
+    "item": "v.GUNPOWDER",
+    "amount": 16,
+    "demand limit": 20,
+    "id": "gunpowder",
+    "category": "alchemy",
+    "price change": 8,
+    "item restingPrice": 4,
+    "demand": 20,
+    "group": 0
+}

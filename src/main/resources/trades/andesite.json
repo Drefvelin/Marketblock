@@ -1,0 +1,11 @@
+{
+    "item": "v.andesite",
+    "amount": 64,
+    "demand limit": 20,
+    "id": "andesite",
+    "category": "stone",
+    "price change": 1,
+    "item restingPrice": 0.5,
+    "demand": 20,
+    "group": 0
+}

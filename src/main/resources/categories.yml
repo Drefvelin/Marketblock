@@ -1,0 +1,24 @@
+wood:
+  name: "#8B5E3CWood"
+  item: v.oak_log
+farm:
+  name: "#4F8F3AFarm"
+  item: v.wheat
+metal:
+  name: "#64748BMetal"
+  item: v.iron_ingot
+mineral:
+  name: "#7653A6Mineral"
+  item: v.diamond
+stone:
+  name: "#787C80Stone"
+  item: v.stone
+alchemy:
+  name: "#008C8CAlchemy"
+  item: v.nether_wart
+fish:
+  name: "#2E8B9EFish"
+  item: v.cod
+unknown:
+  name: "#ffffffUnknown"
+  item: v.gray_dye

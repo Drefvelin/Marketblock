@@ -1,0 +1,11 @@
+{
+    "item": "v.MANGROVE_LOG",
+    "amount": 64,
+    "demand limit": 20,
+    "id": "mangrove_wood",
+    "category": "wood",
+    "price change": 1,
+    "item restingPrice": 0.5,
+    "demand": 20,
+    "group": 0
+}

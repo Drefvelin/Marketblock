@@ -1,0 +1,11 @@
+{
+    "item": "m.materials.niter",
+    "amount": 16,
+    "demand limit": 20,
+    "id": "niter",
+    "category": "mineral",
+    "price change": 6,
+    "item restingPrice": 3,
+    "demand": 20,
+    "group": 0
+}

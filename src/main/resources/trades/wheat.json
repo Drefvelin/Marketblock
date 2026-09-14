@@ -1,0 +1,11 @@
+{
+    "item": "v.WHEAT",
+    "amount": 64,
+    "demand limit": 20,
+    "id": "wheat",
+    "category": "farm",
+    "price change": 2,
+    "item restingPrice": 1,
+    "demand": 20,
+    "group": 0
+}

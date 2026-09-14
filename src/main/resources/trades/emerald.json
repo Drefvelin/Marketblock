@@ -1,0 +1,11 @@
+{
+    "item": "v.EMERALD",
+    "amount": 16,
+    "demand limit": 20,
+    "id": "emerald",
+    "category": "mineral",
+    "price change": 4,
+    "item restingPrice": 2,
+    "demand": 20,
+    "group": 0
+}

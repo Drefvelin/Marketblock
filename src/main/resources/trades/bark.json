@@ -1,0 +1,11 @@
+{
+    "item": "m.materials.bark",
+    "amount": 64,
+    "demand limit": 20,
+    "id": "bark",
+    "category": "wood",
+    "price change": 4,
+    "item restingPrice": 2,
+    "demand": 20,
+    "group": 0
+}
