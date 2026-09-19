@@ -6,6 +6,9 @@ author: Drefvelin
 
 depend: [DenarEconomy, TLibs]
 
+libraries:
+  - org.json:json:20250517
+
 commands:
   marketblock:
     useage: /<command>
