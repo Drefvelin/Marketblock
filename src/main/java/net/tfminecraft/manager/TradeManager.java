@@ -18,6 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import net.tfminecraft.Cache;
 import net.tfminecraft.MarketBlock;
 import net.tfminecraft.DenarEconomy.DenarEconomy;
+import net.tfminecraft.events.MarketSaleEvent;
 import net.tfminecraft.inventory.holder.MBGUI;
 import net.tfminecraft.inventory.holder.MBHolder;
 import net.tfminecraft.loader.CategoryLoader;
@@ -135,8 +136,10 @@ public class TradeManager implements Listener {
         }
         InventoryUtils.removeItems(p, tradePath, requiredAmount);
         p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
-        DenarEconomy.getMoneyManager().addMoney(p, PriceCalculator.calculatePrice(trade), false, true);
+        double price = PriceCalculator.calculatePrice(trade);
+        DenarEconomy.getMoneyManager().addMoney(p, price, false, true);
         trade.sell();
+        Bukkit.getPluginManager().callEvent(new MarketSaleEvent(p, trade, price, requiredAmount));
         update();
     }
 }
