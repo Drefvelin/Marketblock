@@ -5,9 +5,7 @@ version: 1.0
 author: Drefvelin
 
 depend: [DenarEconomy, TLibs]
-
-libraries:
-  - org.json:json:20250517
+softdepend: [Cooking]
 
 commands:
   marketblock:

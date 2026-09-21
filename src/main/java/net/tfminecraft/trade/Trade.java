@@ -1,7 +1,7 @@
 package net.tfminecraft.trade;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
-import org.json.JSONObject;
 
 import me.Plugins.TLibs.TLibs;
 import net.tfminecraft.loader.CategoryLoader;
@@ -18,13 +18,12 @@ public class Trade {
     private double amount;
     private int group;
 
-    // Constructor
     public Trade(String id, Category category, double demand, double demandLimit, double priceChange, String item, double itemRestingPrice, double amount, int group) {
         this.id = id;
         this.category = category;
         category.addTrade(this);
-        this.demand = demand;
-        this.demandLimit = demandLimit;
+        this.demandLimit = Math.max(1, demandLimit);
+        this.demand = clampDemand(demand);
         this.priceChange = priceChange;
         this.item = item;
         this.itemRestingPrice = itemRestingPrice;
@@ -37,7 +36,7 @@ public class Trade {
         this.category = convo.getCategory();
         category.addTrade(this);
         this.demandLimit = Math.max(1, convo.getDemandLimit());
-        this.demand = this.demandLimit/2;
+        this.demand = this.demandLimit / 2;
         this.item = TLibs.getItemAPI().getChecker().getAsStringPath(convo.getItem());
         this.itemRestingPrice = convo.getRestingPrice();
         this.priceChange = convo.getPriceChange();
@@ -46,20 +45,29 @@ public class Trade {
     }
 
     public void resetDemand() {
-        demand = demandLimit/2;
+        demand = demandLimit / 2;
+    }
+
+    public void setDemand(double demand) {
+        this.demand = clampDemand(demand);
     }
 
     public void demand() {
-        demand += Math.max(1, Math.random()*7);
-        if(demand > demandLimit) demand = demandLimit;
+        demand += Math.max(1, Math.random() * 7);
+        if (demand > demandLimit) demand = demandLimit;
     }
 
     public void sell() {
-        demand -= Math.min(1, Math.random()*priceChange);
-        if(demand < 1) demand = 1;
+        demand -= Math.min(1, Math.random() * priceChange);
+        if (demand < 1) demand = 1;
     }
 
-    // Getters (setters omitted for immutability; add if needed)
+    private double clampDemand(double value) {
+        if (value < 1) return 1;
+        if (value > demandLimit) return demandLimit;
+        return value;
+    }
+
     public String getId() {
         return id;
     }
@@ -100,19 +108,14 @@ public class Trade {
         return group;
     }
 
-    // Factory method to load from JSON object
-    public static Trade fromJson(JSONObject json) {
-        String id = json.getString("id");
-        Category category = CategoryLoader.getByString(json.getString("category"));
-        double demand = json.getDouble("demand");
-        double demandLimit = json.getDouble("demand limit");
-        double priceChange = json.getDouble("price change");
-        String item = json.getString("item");
-        double itemRestingPrice = json.getDouble("item restingPrice");
-        double amount = json.getDouble("amount");
-        int group = json.has("group") ? json.getInt("group") : 0;
-
+    public static Trade fromYaml(String id, ConfigurationSection section, double demand) {
+        Category category = CategoryLoader.getByString(section.getString("category", "unknown"));
+        double demandLimit = section.getDouble("demand-limit", 20);
+        double priceChange = section.getDouble("price-change", 1);
+        String item = section.getString("item", "v.gray_dye");
+        double itemRestingPrice = section.getDouble("resting-price", 1);
+        double amount = section.getDouble("amount", 64);
+        int group = section.getInt("group", 0);
         return new Trade(id, category, demand, demandLimit, priceChange, item, itemRestingPrice, amount, group);
     }
 }
-

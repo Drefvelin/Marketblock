@@ -1,53 +1,93 @@
 package net.tfminecraft.database;
 
-import net.tfminecraft.trade.Trade;
-import org.json.JSONObject;
-
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
+
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import net.tfminecraft.MarketBlock;
+import net.tfminecraft.loader.TradeLoader;
+import net.tfminecraft.trade.Trade;
 
 public class TradeDatabase {
 
-    private static final File folder = new File("plugins/MarketBlock/trades");
+    private static File tradesFile() {
+        return new File(MarketBlock.plugin.getDataFolder(), "trades.yml");
+    }
 
-    public static void saveAllTrades(Map<String, Trade> trades) {
-        if (!folder.exists()) folder.mkdirs();
+    private static File demandFile() {
+        File data = new File(MarketBlock.plugin.getDataFolder(), "data");
+        if (!data.exists()) {
+            data.mkdirs();
+        }
+        return new File(data, "demand.yml");
+    }
 
-        for (Trade trade : trades.values()) {
-            saveTrade(trade);
+    public static Map<String, Double> loadDemand() {
+        Map<String, Double> out = new HashMap<>();
+        File file = demandFile();
+        if (!file.exists()) {
+            return out;
+        }
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        for (String id : yaml.getKeys(false)) {
+            out.put(id, yaml.getDouble(id));
+        }
+        return out;
+    }
+
+    public static void saveDemand() {
+        YamlConfiguration yaml = new YamlConfiguration();
+        for (Trade trade : TradeLoader.getTrades().values()) {
+            yaml.set(trade.getId(), trade.getDemand());
+        }
+        try {
+            yaml.save(demandFile());
+        } catch (IOException e) {
+            Logger log = MarketBlock.plugin.getLogger();
+            log.warning("Could not save demand.yml: " + e.getMessage());
         }
     }
 
-    public static void saveTrade(Trade trade) {
+    public static void addTradeDefinition(Trade trade) {
+        File file = tradesFile();
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        String id = trade.getId();
+        yaml.set(id + ".item", trade.getItemString());
+        yaml.set(id + ".amount", trade.getAmount());
+        yaml.set(id + ".demand-limit", trade.getDemandLimit());
+        yaml.set(id + ".category", trade.getCategory().getId());
+        yaml.set(id + ".price-change", trade.getPriceChange());
+        yaml.set(id + ".resting-price", trade.getItemRestingPrice());
+        yaml.set(id + ".group", trade.getGroup());
         try {
-            JSONObject json = toJson(trade);
-            File file = new File(folder, trade.getId() + ".json");
-            try (FileWriter writer = new FileWriter(file)) {
-                writer.write(json.toString(4)); // 4 for pretty printing
-            }
+            yaml.save(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            MarketBlock.plugin.getLogger().warning("Could not update trades.yml: " + e.getMessage());
         }
     }
 
     public static void deleteTrade(Trade trade) {
-        File file = new File(folder, trade.getId() + ".json");
-        if(file.exists()) file.delete();
-    }
-
-    private static JSONObject toJson(Trade trade) {
-        JSONObject json = new JSONObject();
-        json.put("id", trade.getId());
-        json.put("category", trade.getCategory().getId());
-        json.put("demand", trade.getDemand());
-        json.put("demand limit", trade.getDemandLimit());
-        json.put("price change", trade.getPriceChange());
-        json.put("item", trade.getItemString());
-        json.put("item restingPrice", trade.getItemRestingPrice());
-        json.put("amount", trade.getAmount());
-        json.put("group", trade.getGroup());
-        return json;
+        File file = tradesFile();
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        yaml.set(trade.getId(), null);
+        try {
+            yaml.save(file);
+        } catch (IOException e) {
+            MarketBlock.plugin.getLogger().warning("Could not update trades.yml: " + e.getMessage());
+        }
+        File demand = demandFile();
+        if (demand.exists()) {
+            YamlConfiguration d = YamlConfiguration.loadConfiguration(demand);
+            d.set(trade.getId(), null);
+            try {
+                d.save(demand);
+            } catch (IOException e) {
+                MarketBlock.plugin.getLogger().warning("Could not update demand.yml: " + e.getMessage());
+            }
+        }
     }
 }

@@ -1,0 +1,424 @@
+gunpowder:
+  item: v.GUNPOWDER
+  amount: 16
+  demand-limit: 20
+  category: alchemy
+  price-change: 8
+  resting-price: 4
+  group: 0
+nether_wart:
+  item: v.nether_wart
+  amount: 64
+  demand-limit: 20
+  category: alchemy
+  price-change: 1
+  resting-price: 0.5
+  group: 1
+beetroot:
+  item: c.vegetable(origin=Beetroot)
+  amount: 64
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 2
+carrots:
+  item: c.vegetable(origin=Carrot)
+  amount: 64
+  demand-limit: 20
+  category: farm
+  price-change: 1
+  resting-price: 0.5
+  group: 2
+honey:
+  item: v.HONEY_BOTTLE
+  amount: 64
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 2
+melon_slice:
+  item: c.fruit(origin=Melon)
+  amount: 64
+  demand-limit: 20
+  category: farm
+  price-change: 1
+  resting-price: 0.5
+  group: 2
+potatoes:
+  item: c.vegetable(origin=Potato)
+  amount: 64
+  demand-limit: 20
+  category: farm
+  price-change: 1
+  resting-price: 0.5
+  group: 2
+pumpkin:
+  item: c.vegetable(origin=Pumpkin)
+  amount: 64
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 2
+raw_beef:
+  item: c.meat(origin=Beef)
+  amount: 16
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 1
+raw_chicken:
+  item: c.meat(origin=Chicken)
+  amount: 16
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 1
+raw_mutton:
+  item: c.meat(origin=Mutton)
+  amount: 16
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 1
+raw_pork:
+  item: c.meat(origin=Pork)
+  amount: 16
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 1
+raw_rabbit:
+  item: v.rabbit
+  amount: 16
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 1
+silk:
+  item: m.materials.silk
+  amount: 16
+  demand-limit: 20
+  category: farm
+  price-change: 4
+  resting-price: 2
+  group: 0
+sugar_cane:
+  item: v.SUGAR_CANE
+  amount: 64
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 2
+tobacco:
+  item: ia.iasurvival:tobacco
+  amount: 16
+  demand-limit: 20
+  category: farm
+  price-change: 4
+  resting-price: 2
+  group: 0
+wheat:
+  item: c.grain(origin=Wheat)
+  amount: 64
+  demand-limit: 20
+  category: farm
+  price-change: 2
+  resting-price: 1
+  group: 2
+honeycomb:
+  item: v.HONEYCOMB
+  amount: 16.0
+  demand-limit: 20.0
+  category: farming
+  price-change: 1.0
+  resting-price: 4.0
+  group: 0
+salt:
+  item: m.ingredients.salt
+  amount: 32.0
+  demand-limit: 20.0
+  category: farming
+  price-change: 1.0
+  resting-price: 2.0
+  group: 0
+spiceleaf:
+  item: m.ingredients.spice_leaf
+  amount: 8.0
+  demand-limit: 20.0
+  category: farming
+  price-change: 1.0
+  resting-price: 4.0
+  group: 0
+cod:
+  item: v.COD
+  amount: 64
+  demand-limit: 20
+  category: fish
+  price-change: 1
+  resting-price: 1
+  group: 0
+pufferfish:
+  item: v.PUFFERFISH
+  amount: 64
+  demand-limit: 20
+  category: fish
+  price-change: 1
+  resting-price: 1
+  group: 3
+salmon:
+  item: v.SALMON
+  amount: 64
+  demand-limit: 20
+  category: fish
+  price-change: 1
+  resting-price: 1
+  group: 1
+tropical_fish:
+  item: v.TROPICAL_FISH
+  amount: 64
+  demand-limit: 20
+  category: fish
+  price-change: 1
+  resting-price: 1
+  group: 2
+copper:
+  item: v.COPPER_INGOT
+  amount: 64
+  demand-limit: 20
+  category: metal
+  price-change: 4
+  resting-price: 2
+  group: 1
+iron_ingot:
+  item: v.IRON_INGOT
+  amount: 64
+  demand-limit: 20
+  category: metal
+  price-change: 6
+  resting-price: 4
+  group: 0
+arcane_crystal:
+  item: m.materials.arcane_crystal
+  amount: 16
+  demand-limit: 20
+  category: mineral
+  price-change: 6
+  resting-price: 3
+  group: 1
+coal:
+  item: v.coal
+  amount: 64
+  demand-limit: 20
+  category: mineral
+  price-change: 1
+  resting-price: 0.5
+  group: 3
+diamond:
+  item: v.DIAMOND
+  amount: 16
+  demand-limit: 20
+  category: mineral
+  price-change: 4
+  resting-price: 2
+  group: 2
+emerald:
+  item: v.EMERALD
+  amount: 16
+  demand-limit: 20
+  category: mineral
+  price-change: 4
+  resting-price: 2
+  group: 2
+enchanted_dust:
+  item: m.currency.enchanted_dust
+  amount: 16
+  demand-limit: 20
+  category: mineral
+  price-change: 8
+  resting-price: 4
+  group: 0
+lapis_lazuli:
+  item: v.LAPIS_LAZULI
+  amount: 64
+  demand-limit: 20
+  category: mineral
+  price-change: 1
+  resting-price: 0.5
+  group: 3
+niter:
+  item: m.materials.niter
+  amount: 16
+  demand-limit: 20
+  category: mineral
+  price-change: 6
+  resting-price: 3
+  group: 1
+redstone:
+  item: v.REDSTONE
+  amount: 64
+  demand-limit: 20
+  category: mineral
+  price-change: 1
+  resting-price: 0.5
+  group: 3
+amethyst:
+  item: v.AMETHYST_SHARD
+  amount: 4.0
+  demand-limit: 20.0
+  category: mining
+  price-change: 1.0
+  resting-price: 1.0
+  group: 0
+tin:
+  item: m.materials.raw_tin
+  amount: 12.0
+  demand-limit: 20.0
+  category: mining
+  price-change: 1.0
+  resting-price: 8.0
+  group: 0
+string:
+  item: v.string
+  amount: 32.0
+  demand-limit: 20.0
+  category: other
+  price-change: 1.0
+  resting-price: 6.0
+  group: 0
+andesite:
+  item: v.andesite
+  amount: 64
+  demand-limit: 20
+  category: stone
+  price-change: 1
+  resting-price: 0.5
+  group: 1
+deepslate:
+  item: v.deepslate
+  amount: 64
+  demand-limit: 20
+  category: stone
+  price-change: 1
+  resting-price: 0.5
+  group: 2
+diorite:
+  item: v.diorite
+  amount: 64
+  demand-limit: 20
+  category: stone
+  price-change: 1
+  resting-price: 0.5
+  group: 1
+granite:
+  item: v.granite
+  amount: 64
+  demand-limit: 20
+  category: stone
+  price-change: 1
+  resting-price: 0.5
+  group: 1
+stone:
+  item: v.stone
+  amount: 64
+  demand-limit: 20
+  category: stone
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+tuff:
+  item: v.tuff
+  amount: 64
+  demand-limit: 20
+  category: stone
+  price-change: 1
+  resting-price: 0.5
+  group: 2
+acacia_wood:
+  item: v.ACACIA_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+bark:
+  item: m.materials.bark
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 4
+  resting-price: 2
+  group: 1
+birch_wood:
+  item: v.Birch_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+cherry_wood:
+  item: v.CHERRY_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+darkoak_wood:
+  item: v.DARK_OAK_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+jungle_wood:
+  item: v.JUNGLE_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+mangrove_wood:
+  item: v.MANGROVE_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+oak_wood:
+  item: v.OAK_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+pale_oak_wood:
+  item: v.PALE_OAK_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0
+spruce_wood:
+  item: v.SPRUCE_LOG
+  amount: 64
+  demand-limit: 20
+  category: wood
+  price-change: 1
+  resting-price: 0.5
+  group: 0

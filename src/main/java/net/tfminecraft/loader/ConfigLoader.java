@@ -24,5 +24,10 @@ public class ConfigLoader implements LoaderInterface{
 		Cache.marketBlock = config.getString("market-block");
 		
 		Cache.slots = config.getIntegerList("slots");
+
+		Cache.freshnessPrice.clear();
+		Cache.freshnessPrice.put("fresh", config.getDouble("freshness-price.fresh", 1.0));
+		Cache.freshnessPrice.put("stale", config.getDouble("freshness-price.stale", 0.5));
+		Cache.freshnessPrice.put("rotten", config.getDouble("freshness-price.rotten", 0.1));
 	}
 }

@@ -72,7 +72,6 @@ public class CommandManager implements CommandExecutor {
             TradeDatabase.deleteTrade(trade);
             TradeLoader.getTrades().remove(id);
 
-            // You can also delete the actual JSON file here if you're storing each trade in its own file
             player.sendMessage("§aTrade with ID '" + id + "' has been deleted.");
             return true;
         }
@@ -91,7 +90,6 @@ public class CommandManager implements CommandExecutor {
             }
             trade.resetDemand();
 
-            // You can also delete the actual JSON file here if you're storing each trade in its own file
             player.sendMessage("§aTrade with ID '" + id + "' has been reset.");
             return true;
         }

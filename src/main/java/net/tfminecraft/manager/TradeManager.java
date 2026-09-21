@@ -27,6 +27,7 @@ import net.tfminecraft.trade.Category;
 import net.tfminecraft.trade.Trade;
 import net.tfminecraft.util.InventoryUtils;
 import net.tfminecraft.util.PriceCalculator;
+import net.tfminecraft.util.SaleTake;
 
 public class TradeManager implements Listener {
     InventoryManager inv = new InventoryManager();
@@ -134,12 +135,71 @@ public class TradeManager implements Listener {
             p.sendMessage("§cYou don't have enough items for this trade.");
             return;
         }
-        InventoryUtils.removeItems(p, tradePath, requiredAmount);
+        SaleTake take = InventoryUtils.removeItems(p, tradePath, requiredAmount);
         p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
-        double price = PriceCalculator.calculatePrice(trade);
+        double base = PriceCalculator.calculatePrice(trade);
+        double price = applyFreshness(base, take);
         DenarEconomy.getMoneyManager().addMoney(p, price, false, true);
+        sendSaleBreakdown(p, take, requiredAmount, base, price);
         trade.sell();
         Bukkit.getPluginManager().callEvent(new MarketSaleEvent(p, trade, price, requiredAmount));
         update();
+    }
+
+    private static double applyFreshness(double base, SaleTake take) {
+        int taken = take.total();
+        if (taken <= 0) {
+            return Math.max(0.01, base);
+        }
+        double weight = 0;
+        for (var entry : take.getCounts().entrySet()) {
+            weight += entry.getValue() * Cache.freshnessMultiplier(entry.getKey());
+        }
+        double price = base * (weight / taken);
+        price = Math.round(price * 100.0) / 100.0;
+        return Math.max(0.01, price);
+    }
+
+    private static void sendSaleBreakdown(Player p, SaleTake take, double amount, double base, double price) {
+        p.sendMessage("§aSold " + formatAmount(amount) + " for " + formatMoney(price) + "d");
+        if (take.allFresh()) {
+            return;
+        }
+        p.sendMessage("§7  Base: " + formatMoney(base) + "d");
+        for (String step : Cache.freshnessPrice.keySet()) {
+            Integer n = take.getCounts().get(step);
+            if (n == null || n <= 0) {
+                continue;
+            }
+            p.sendMessage("§7  " + capitalize(step) + " x" + n + ": " + Cache.freshnessPercent(step) + "%");
+        }
+        for (var entry : take.getCounts().entrySet()) {
+            if (Cache.freshnessPrice.containsKey(entry.getKey()) || entry.getValue() <= 0) {
+                continue;
+            }
+            p.sendMessage("§7  " + capitalize(entry.getKey()) + " x" + entry.getValue() + ": "
+                    + Cache.freshnessPercent(entry.getKey()) + "%");
+        }
+    }
+
+    private static String formatAmount(double amount) {
+        if (amount == Math.rint(amount)) {
+            return String.valueOf((long) amount);
+        }
+        return String.valueOf(amount);
+    }
+
+    private static String formatMoney(double value) {
+        if (value == Math.rint(value)) {
+            return String.valueOf((long) value);
+        }
+        return String.valueOf(value);
+    }
+
+    private static String capitalize(String step) {
+        if (step == null || step.isBlank()) {
+            return "Fresh";
+        }
+        return Character.toUpperCase(step.charAt(0)) + step.substring(1);
     }
 }

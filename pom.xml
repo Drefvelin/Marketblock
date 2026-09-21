@@ -11,10 +11,11 @@
     <properties>
         <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tfmc.refs>D:/Documents/TFMC/ReferenceLibs</tfmc.refs>
-        <tfmc.builds>D:/Documents/TFMC/Builds/MarketBlock</tfmc.builds>
-        <tfmc.tlibs>D:/Documents/TFMC/Builds/TLibs</tfmc.tlibs>
-        <tfmc.plugins>D:/Documents/TFMC/Workspace/plugins</tfmc.plugins>
+        <tfmc.refs>D:/Dokumenter/My Plugins/Reference Libs</tfmc.refs>
+        <tfmc.builds>D:/Dokumenter/My Plugins/TFMC/MarketBlock</tfmc.builds>
+        <tfmc.tlibs>D:/Dokumenter/My Plugins/TFMC/TLibs</tfmc.tlibs>
+        <tfmc.plugins>D:/Dokumenter/My Plugins/TFMC/DenarEconomy</tfmc.plugins>
+        <tfmc.cooking>D:/Dokumenter/My Plugins/TFMC/Cooking</tfmc.cooking>
     </properties>
 
     <dependencies>
@@ -24,12 +25,6 @@
             <version>2.10.1</version>
             <scope>system</scope>
             <systemPath>${tfmc.refs}/gson-2.10.1.jar</systemPath>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20250517</version>
         </dependency>
         <dependency>
             <groupId>local</groupId>
@@ -51,6 +46,13 @@
             <version>0.1.7</version>
             <scope>system</scope>
             <systemPath>${tfmc.plugins}/denareconomy-0.1.7.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>local</groupId>
+            <artifactId>Cooking</artifactId>
+            <version>0.1.5</version>
+            <scope>system</scope>
+            <systemPath>${tfmc.cooking}/cooking-0.1.5-ALPHA.jar</systemPath>
         </dependency>
     </dependencies>
 

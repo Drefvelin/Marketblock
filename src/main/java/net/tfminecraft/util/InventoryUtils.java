@@ -12,10 +12,7 @@ public class InventoryUtils {
         for (ItemStack item : p.getInventory().getContents()) {
             if (item == null || item.getType().isAir()) continue;
 
-            String itemPath = TLibs.getItemAPI().getChecker().getAsStringPath(item);
-            if (itemPath == null) continue;
-
-            if (itemPath.equalsIgnoreCase(path)) {
+            if (TLibs.getItemAPI().getChecker().checkItemWithPath(item, path)) {
                 total += item.getAmount();
             }
         }
@@ -26,29 +23,29 @@ public class InventoryUtils {
         return getTotalAmount(p, path) >= requiredAmount;
     }
 
-    public static void removeItems(Player p, String path, double amountToRemove) {
+    public static SaleTake removeItems(Player p, String path, double amountToRemove) {
+        SaleTake take = new SaleTake();
         double remaining = amountToRemove;
 
         for (ItemStack item : p.getInventory().getContents()) {
             if (item == null || item.getType().isAir()) continue;
 
-            String itemPath = TLibs.getItemAPI().getChecker().getAsStringPath(item);
-            if (itemPath == null) continue;
-
-            if (!itemPath.equalsIgnoreCase(path)) continue;
+            if (!TLibs.getItemAPI().getChecker().checkItemWithPath(item, path)) continue;
 
             int stackAmount = item.getAmount();
+            int taken = stackAmount <= remaining ? stackAmount : (int) remaining;
+            take.add(FreshnessLookup.stepId(item), taken);
 
             if (stackAmount <= remaining) {
                 remaining -= stackAmount;
                 item.setAmount(0);
             } else {
-                item.setAmount((int) (stackAmount - remaining));
+                item.setAmount(stackAmount - taken);
                 remaining = 0;
             }
 
             if (remaining <= 0) break;
         }
+        return take;
     }
 }
-

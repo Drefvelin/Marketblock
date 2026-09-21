@@ -1,68 +1,60 @@
 package net.tfminecraft.loader;
 
-import net.tfminecraft.MarketBlock;
-import net.tfminecraft.trade.Trade;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
+
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import net.tfminecraft.MarketBlock;
+import net.tfminecraft.database.TradeDatabase;
+import net.tfminecraft.trade.Trade;
 
 public class TradeLoader {
 
     private static final HashMap<String, Trade> trades = new HashMap<>();
 
     public void loadTrades() {
+        Map<String, Double> live = new HashMap<>();
+        for (Trade trade : trades.values()) {
+            live.put(trade.getId(), trade.getDemand());
+        }
+        Map<String, Double> saved = TradeDatabase.loadDemand();
         trades.clear();
-        File tradeFolder = new File(MarketBlock.plugin.getDataFolder(), "trades");
+
         Logger log = MarketBlock.plugin.getLogger();
-
-        if (!tradeFolder.exists() || !tradeFolder.isDirectory()) {
-            log.warning("Trade folder does not exist: " + tradeFolder.getAbsolutePath());
+        File file = new File(MarketBlock.plugin.getDataFolder(), "trades.yml");
+        if (!file.exists()) {
+            log.warning("trades.yml does not exist: " + file.getAbsolutePath());
             return;
         }
 
-        File[] files = tradeFolder.listFiles();
-        if (files == null) {
-            log.warning("No files found in trade folder.");
-            return;
-        }
-
-        for (File file : files) {
-            if (!file.isFile() || !file.getName().endsWith(".json")) {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        for (String id : config.getKeys(false)) {
+            ConfigurationSection section = config.getConfigurationSection(id);
+            if (section == null) {
                 continue;
             }
-
-            try {
-                String content = Files.readString(file.toPath(), StandardCharsets.UTF_8);
-                if (!content.isEmpty() && content.charAt(0) == '\uFEFF') {
-                    content = content.substring(1);
-                }
-                content = content.strip();
-                if (content.isEmpty() || content.charAt(0) != '{') {
-                    log.warning("Skipping invalid trade file: " + file.getName());
-                    continue;
-                }
-
-                Trade trade = Trade.fromJson(new JSONObject(content));
-                trades.put(trade.getId(), trade);
-                log.info("Loaded trade: " + trade.getId());
-            } catch (IOException e) {
-                log.warning("Skipping unreadable trade file: " + file.getName() + " (" + e.getMessage() + ")");
-            } catch (JSONException e) {
-                log.warning("Skipping invalid trade file: " + file.getName() + " (" + e.getMessage() + ")");
-            } catch (Exception e) {
-                log.warning("Skipping trade file: " + file.getName() + " (" + e.getMessage() + ")");
+            double demandLimit = Math.max(1, section.getDouble("demand-limit", 20));
+            double demand;
+            if (live.containsKey(id)) {
+                demand = live.get(id);
+            } else if (saved.containsKey(id)) {
+                demand = saved.get(id);
+            } else {
+                demand = demandLimit / 2.0;
             }
+            Trade trade = Trade.fromYaml(id, section, demand);
+            trades.put(trade.getId(), trade);
+            log.info("Loaded trade: " + trade.getId());
         }
     }
 
     public static void add(Trade t) {
         trades.put(t.getId(), t);
+        TradeDatabase.addTradeDefinition(t);
     }
 
     public static Trade getTradeById(String id) {

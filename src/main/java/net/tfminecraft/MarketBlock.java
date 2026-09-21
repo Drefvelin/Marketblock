@@ -2,7 +2,6 @@ package net.tfminecraft;
 
 import java.io.File;
 
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,7 +13,6 @@ import net.tfminecraft.manager.CommandManager;
 import net.tfminecraft.manager.TradeManager;
 import net.tfminecraft.manager.commands.ChatListener;
 import net.tfminecraft.manager.commands.TabCompletion;
-import net.tfminecraft.trade.Trade;
 
 public class MarketBlock extends JavaPlugin{
     public static MarketBlock plugin;
@@ -40,9 +38,7 @@ public class MarketBlock extends JavaPlugin{
 	
 	@Override
 	public void onDisable() {
-		for(Trade t : TradeLoader.getTrades().values()){
-			TradeDatabase.saveTrade(t);
-		}
+		TradeDatabase.saveDemand();
 	}
 	
 	public void registerListeners() {
@@ -63,16 +59,15 @@ public class MarketBlock extends JavaPlugin{
 	}
 	public void createFolders() {
 		if (!getDataFolder().exists()) getDataFolder().mkdir();
-		File subFolder = new File(getDataFolder(), "trades");
-		if(!subFolder.exists()) subFolder.mkdir();
-		subFolder = new File(getDataFolder(), "data");
+		File subFolder = new File(getDataFolder(), "data");
 		if(!subFolder.exists()) subFolder.mkdir();
 	}
 	
 	public void createConfigs() {
 		String[] files = {
 				"config.yml",
-				"categories.yml"
+				"categories.yml",
+				"trades.yml"
 				};
 		for(String s : files) {
 			File newConfigFile = new File(getDataFolder(), s);
