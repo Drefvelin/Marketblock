@@ -53,7 +53,7 @@ public class TradeView {
 	}
 
     private ItemStack createTradeItem(Trade trade, Category cat) {
-        ItemStack i = trade.getItem();
+        ItemStack i = trade.getIconItem();
         if (i == null || i.getItemMeta() == null) {
             i = new ItemStack(Material.GRAY_DYE, 1);
         }
@@ -65,9 +65,12 @@ public class TradeView {
         List<String> lore = new ArrayList<>();
         lore.add(StringFormatter.formatHex("#af97bdDemand§e: "+DemandFormatter.getDemandBar(trade.getDemand(), trade.getDemandLimit())));
         lore.add(StringFormatter.formatHex("#d97b66Price§e: §6"+PriceCalculator.calculatePrice(trade)+"d"));
-        lore.add(StringFormatter.formatHex("#9e9e9eFresh " + Cache.freshnessPercent("fresh")
-                + "% · Stale " + Cache.freshnessPercent("stale")
-                + "% · Rotten " + Cache.freshnessPercent("rotten") + "%"));
+        String match = trade.getItemString();
+        if (match != null && match.regionMatches(true, 0, "c.", 0, 2)) {
+            lore.add(StringFormatter.formatHex("#9e9e9eFresh " + Cache.freshnessPercent("fresh")
+                    + "% · Stale " + Cache.freshnessPercent("stale")
+                    + "% · Rotten " + Cache.freshnessPercent("rotten") + "%"));
+        }
         lore.add(" ");
         lore.add(StringFormatter.formatHex("#6b9c68[#fafa16Click to Trade#6b9c68]"));
         m.setLore(lore);

@@ -14,6 +14,7 @@ public class Trade {
     private double demandLimit;
     private double priceChange;
     private String item;
+    private String icon;
     private double itemRestingPrice;
     private double amount;
     private int group;
@@ -92,8 +93,17 @@ public class Trade {
         return TLibs.getItemAPI().getCreator().getItemFromPath(item);
     }
 
+    public ItemStack getIconItem() {
+        String path = icon != null && !icon.isBlank() ? icon : item;
+        return TLibs.getItemAPI().getCreator().getItemFromPath(path);
+    }
+
     public String getItemString() {
         return item;
+    }
+
+    public String getIconString() {
+        return icon;
     }
 
     public double getItemRestingPrice() {
@@ -116,6 +126,11 @@ public class Trade {
         double itemRestingPrice = section.getDouble("resting-price", 1);
         double amount = section.getDouble("amount", 64);
         int group = section.getInt("group", 0);
-        return new Trade(id, category, demand, demandLimit, priceChange, item, itemRestingPrice, amount, group);
+        Trade trade = new Trade(id, category, demand, demandLimit, priceChange, item, itemRestingPrice, amount, group);
+        String icon = section.getString("icon");
+        if (icon != null && !icon.isBlank()) {
+            trade.icon = icon;
+        }
+        return trade;
     }
 }

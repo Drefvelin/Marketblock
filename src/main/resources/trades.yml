@@ -16,6 +16,7 @@ nether_wart:
   group: 1
 beetroot:
   item: c.vegetable(origin=Beetroot)
+  icon: v.BEETROOT
   amount: 64
   demand-limit: 20
   category: farm
@@ -24,6 +25,7 @@ beetroot:
   group: 2
 carrots:
   item: c.vegetable(origin=Carrot)
+  icon: v.CARROT
   amount: 64
   demand-limit: 20
   category: farm
@@ -40,6 +42,7 @@ honey:
   group: 2
 melon_slice:
   item: c.fruit(origin=Melon)
+  icon: v.MELON_SLICE
   amount: 64
   demand-limit: 20
   category: farm
@@ -48,6 +51,7 @@ melon_slice:
   group: 2
 potatoes:
   item: c.vegetable(origin=Potato)
+  icon: v.POTATO
   amount: 64
   demand-limit: 20
   category: farm
@@ -56,6 +60,7 @@ potatoes:
   group: 2
 pumpkin:
   item: c.vegetable(origin=Pumpkin)
+  icon: v.PUMPKIN
   amount: 64
   demand-limit: 20
   category: farm
@@ -64,6 +69,7 @@ pumpkin:
   group: 2
 raw_beef:
   item: c.meat(origin=Beef)
+  icon: v.BEEF
   amount: 16
   demand-limit: 20
   category: farm
@@ -72,6 +78,7 @@ raw_beef:
   group: 1
 raw_chicken:
   item: c.meat(origin=Chicken)
+  icon: v.CHICKEN
   amount: 16
   demand-limit: 20
   category: farm
@@ -80,6 +87,7 @@ raw_chicken:
   group: 1
 raw_mutton:
   item: c.meat(origin=Mutton)
+  icon: v.MUTTON
   amount: 16
   demand-limit: 20
   category: farm
@@ -88,6 +96,7 @@ raw_mutton:
   group: 1
 raw_pork:
   item: c.meat(origin=Pork)
+  icon: v.PORKCHOP
   amount: 16
   demand-limit: 20
   category: farm
@@ -128,6 +137,7 @@ tobacco:
   group: 0
 wheat:
   item: c.grain(origin=Wheat)
+  icon: v.WHEAT
   amount: 64
   demand-limit: 20
   category: farm
@@ -359,7 +369,7 @@ bark:
   resting-price: 2
   group: 1
 birch_wood:
-  item: v.Birch_LOG
+  item: v.BIRCH_LOG
   amount: 64
   demand-limit: 20
   category: wood

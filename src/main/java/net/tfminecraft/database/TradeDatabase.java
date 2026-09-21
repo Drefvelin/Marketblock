@@ -57,6 +57,9 @@ public class TradeDatabase {
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         String id = trade.getId();
         yaml.set(id + ".item", trade.getItemString());
+        if (trade.getIconString() != null && !trade.getIconString().isBlank()) {
+            yaml.set(id + ".icon", trade.getIconString());
+        }
         yaml.set(id + ".amount", trade.getAmount());
         yaml.set(id + ".demand-limit", trade.getDemandLimit());
         yaml.set(id + ".category", trade.getCategory().getId());
